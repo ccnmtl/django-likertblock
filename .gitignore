@@ -1,0 +1,4 @@
+ve
+reports
+*.pyc
+.coverage
