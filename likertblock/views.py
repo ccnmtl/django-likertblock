@@ -10,17 +10,19 @@ class EditQuestionnaireView(DetailView):
     model = Questionnaire
 
 
-def delete_question(request, id):
-    question = get_object_or_404(Question, id=id)
-    if request.method == "POST":
+class DeleteQuestionView(View):
+    def get(self, request, pk, **kwargs):
+        return HttpResponse("""
+        <html><body><form action="." method="post">Are you Sure?
+        <input type="submit" value="Yes, delete it" /></form></body></html>
+        """)
+
+    def post(self, request, pk, **kwargs):
+        question = get_object_or_404(Question, pk=pk)
         questionnaire = question.questionnaire
         question.delete()
         return HttpResponseRedirect(
             reverse("edit-questionnaire", args=[questionnaire.id]))
-    return HttpResponse("""
-<html><body><form action="." method="post">Are you Sure?
-<input type="submit" value="Yes, delete it" /></form></body></html>
-""")
 
 
 def reorder_questions(request, id):
