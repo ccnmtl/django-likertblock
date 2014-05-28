@@ -1,8 +1,9 @@
 from django.conf.urls import patterns
+from .views import EditQuestionnaireView
 
 urlpatterns = patterns(
     'likertblock.views',
-    (r'^edit_questionnaire/(?P<id>\d+)/$', 'edit_questionnaire',
+    (r'^edit_questionnaire/(?P<pk>\d+)/$', EditQuestionnaireView.as_view(),
      {}, 'edit-questionnaire'),
     (r'^edit_questionnaire/(?P<id>\d+)/add_question/$',
      'add_question_to_questionnaire', {},

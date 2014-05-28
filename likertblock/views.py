@@ -2,15 +2,12 @@ from .models import Questionnaire, Question
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
+from django.views.generic.base import TemplateView, View
+from django.views.generic.detail import DetailView
 
 
-def edit_questionnaire(request, id):
-    questionnaire = get_object_or_404(Questionnaire, id=id)
-    section = questionnaire.pageblock().section
-    return render(
-        request,
-        'likertblock/edit_questionnaire.html',
-        dict(questionnaire=questionnaire, section=section))
+class EditQuestionnaireView(DetailView):
+    model = Questionnaire
 
 
 def delete_question(request, id):
