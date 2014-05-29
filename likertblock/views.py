@@ -25,17 +25,17 @@ class DeleteQuestionView(View):
             reverse("edit-questionnaire", args=[questionnaire.id]))
 
 
-def reorder_questions(request, id):
-    if request.method != "POST":
-        return HttpResponse("only use POST for this", status=400)
-    questionnaire = get_object_or_404(Questionnaire, id=id)
-    keys = request.GET.keys()
-    question_keys = [int(k[len('question_'):]) for k in keys
-                     if k.startswith('question_')]
-    question_keys.sort()
-    questions = [int(request.GET['question_' + str(k)]) for k in question_keys]
-    questionnaire.update_questions_order(questions)
-    return HttpResponse("ok")
+class ReorderQuestionsView(View):
+    def post(self, request, id):
+        questionnaire = get_object_or_404(Questionnaire, id=id)
+        keys = request.GET.keys()
+        question_keys = [int(k[len('question_'):]) for k in keys
+                         if k.startswith('question_')]
+        question_keys.sort()
+        questions = [int(request.GET['question_' + str(k)])
+                     for k in question_keys]
+        questionnaire.update_questions_order(questions)
+        return HttpResponse("ok")
 
 
 def add_question_to_questionnaire(request, id):

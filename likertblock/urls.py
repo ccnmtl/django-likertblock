@@ -1,6 +1,6 @@
 from django.conf.urls import patterns
 from .views import (
-    EditQuestionnaireView, DeleteQuestionView)
+    EditQuestionnaireView, DeleteQuestionView, ReorderQuestionsView)
 
 urlpatterns = patterns(
     'likertblock.views',
@@ -13,6 +13,6 @@ urlpatterns = patterns(
      'likert-edit-question'),
     (r'^delete_question/(?P<pk>\d+)/$', DeleteQuestionView.as_view(), {},
      'likert-delete-question'),
-    (r'^reorder_questions/(?P<id>\d+)/$', 'reorder_questions', {},
+    (r'^reorder_questions/(?P<id>\d+)/$', ReorderQuestionsView.as_view(), {},
      'likert-reorder-questions'),
 )
