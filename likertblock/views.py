@@ -26,8 +26,8 @@ class DeleteQuestionView(View):
 
 
 class ReorderQuestionsView(View):
-    def post(self, request, id):
-        questionnaire = get_object_or_404(Questionnaire, id=id)
+    def post(self, request, pk):
+        questionnaire = get_object_or_404(Questionnaire, pk=pk)
         keys = request.GET.keys()
         question_keys = [int(k[len('question_'):]) for k in keys
                          if k.startswith('question_')]
@@ -38,8 +38,8 @@ class ReorderQuestionsView(View):
         return HttpResponse("ok")
 
 
-def add_question_to_questionnaire(request, id):
-    questionnaire = get_object_or_404(Questionnaire, id=id)
+def add_question_to_questionnaire(request, pk):
+    questionnaire = get_object_or_404(Questionnaire, pk=pk)
     form = questionnaire.add_question_form(request.POST)
     if form.is_valid():
         question = form.save(commit=False)
@@ -49,8 +49,8 @@ def add_question_to_questionnaire(request, id):
         reverse("edit-questionnaire", args=[questionnaire.id]))
 
 
-def edit_question(request, id):
-    question = get_object_or_404(Question, id=id)
+def edit_question(request, pk):
+    question = get_object_or_404(Question, pk=pk)
     if request.method == "POST":
         form = question.edit_form(request.POST)
         question = form.save(commit=False)
