@@ -38,15 +38,16 @@ class ReorderQuestionsView(View):
         return HttpResponse("ok")
 
 
-def add_question_to_questionnaire(request, pk):
-    questionnaire = get_object_or_404(Questionnaire, pk=pk)
-    form = questionnaire.add_question_form(request.POST)
-    if form.is_valid():
-        question = form.save(commit=False)
-        question.questionnaire = questionnaire
-        question.save()
-    return HttpResponseRedirect(
-        reverse("edit-questionnaire", args=[questionnaire.id]))
+class AddQuestionToQuestionnaireView(View):
+    def post(self, request, pk):
+        questionnaire = get_object_or_404(Questionnaire, pk=pk)
+        form = questionnaire.add_question_form(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.questionnaire = questionnaire
+            question.save()
+        return HttpResponseRedirect(
+            reverse("edit-questionnaire", args=[questionnaire.id]))
 
 
 def edit_question(request, pk):
