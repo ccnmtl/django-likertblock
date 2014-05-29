@@ -2,3 +2,5 @@ ve
 reports
 *.pyc
 .coverage
+dist
+build
