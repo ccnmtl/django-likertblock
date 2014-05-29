@@ -4,25 +4,19 @@ from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.views.generic.base import View
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import DeleteView
 
 
 class EditQuestionnaireView(DetailView):
     model = Questionnaire
 
 
-class DeleteQuestionView(View):
-    def get(self, request, pk, **kwargs):
-        return HttpResponse("""
-        <html><body><form action="." method="post">Are you Sure?
-        <input type="submit" value="Yes, delete it" /></form></body></html>
-        """)
+class DeleteQuestionView(DeleteView):
+    model = Question
 
-    def post(self, request, pk, **kwargs):
-        question = get_object_or_404(Question, pk=pk)
-        questionnaire = question.questionnaire
-        question.delete()
-        return HttpResponseRedirect(
-            reverse("edit-questionnaire", args=[questionnaire.id]))
+    def get_success_url(self):
+        questionnaire = self.object.questionnaire
+        return reverse("edit-questionnaire", args=[questionnaire.id])
 
 
 class ReorderQuestionsView(View):
