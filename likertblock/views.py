@@ -2,7 +2,7 @@ from .models import Questionnaire, Question
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
-from django.views.generic.base import TemplateView, View
+from django.views.generic.base import View
 from django.views.generic.detail import DetailView
 
 
@@ -50,15 +50,22 @@ class AddQuestionToQuestionnaireView(View):
             reverse("edit-questionnaire", args=[questionnaire.id]))
 
 
-def edit_question(request, pk):
-    question = get_object_or_404(Question, pk=pk)
-    if request.method == "POST":
+class EditQuestionView(View):
+    template_name = 'likertblock/edit_question.html'
+
+    def get_object(self, pk):
+        return get_object_or_404(Question, pk=pk)
+
+    def get(self, request, pk):
+        return render(
+            request,
+            self.template_name,
+            dict(question=self.get_object(pk)))
+
+    def post(self, request, pk):
+        question = self.get_object(pk)
         form = question.edit_form(request.POST)
         question = form.save(commit=False)
         question.save()
         return HttpResponseRedirect(reverse("likert-edit-question",
                                             args=[question.id]))
-    return render(
-        request,
-        'likertblock/edit_question.html',
-        dict(question=question))
