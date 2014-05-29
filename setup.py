@@ -33,7 +33,7 @@ setup(
     url="",
     description="Basic Likert PageBlock",
     long_description="Basic Likert PageBlock",
-    install_requires = ['Markdown', 'django-markwhat', 'pagetree'],
+    install_requires = ['Markdown', 'django-markwhat', 'django-pagetree'],
     scripts = [],
     license = "BSD",
     platforms = ["any"],
