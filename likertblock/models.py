@@ -55,7 +55,7 @@ class Questionnaire(models.Model):
         self.set_question_order(question_ids)
 
     def clear_user_submissions(self, user):
-        Submission.objects.filter(user=user, quiz=self).delete()
+        Submission.objects.filter(user=user, questionnaire=self).delete()
 
     @classmethod
     def add_form(self):

@@ -9,6 +9,10 @@ class QuestionnaireTest(TestCase):
         q = Questionnaire.objects.create()
         self.assertTrue(q.needs_submit())
 
+    def test_clear_user_submissions(self):
+        q = Questionnaire.objects.create()
+        q.clear_user_submissions(None)
+
 
 class QuestionTest(TestCase):
     def test_unicode(self):
