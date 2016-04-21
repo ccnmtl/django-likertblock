@@ -1,13 +1,13 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericRelation
 from django.core.urlresolvers import reverse
 from django.db import models
 from pagetree.models import PageBlock
 
 
 class Questionnaire(models.Model):
-    pageblocks = generic.GenericRelation(PageBlock)
+    pageblocks = GenericRelation(PageBlock)
     description = models.TextField(blank=True)
 
     display_name = "Likert"
