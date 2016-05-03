@@ -110,7 +110,6 @@ class Question(models.Model):
     text = models.TextField(blank=True)
 
     class Meta:
-        ordering = ('questionnaire',)
         order_with_respect_to = 'questionnaire'
 
     def __unicode__(self):
