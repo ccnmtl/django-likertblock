@@ -27,7 +27,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="django-likertblock",
-    version="0.2.0",
+    version="0.2.1",
     author="Anders Pearson",
     author_email="anders@columbia.edu",
     url="",
