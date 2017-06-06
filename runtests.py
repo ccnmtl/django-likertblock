@@ -6,6 +6,7 @@ $ ./ve/bin/python runtests.py
 """
 
 
+import django
 from django.conf import settings
 from django.core.management import call_command
 
@@ -20,16 +21,11 @@ def main():
             'django.contrib.sessions',
             'pagetree',
             'likertblock',
-            'django_nose',
             'django_jenkins',
             'django_markwhat',
         ),
-        TEST_RUNNER = 'django_nose.NoseTestSuiteRunner',
+        TEST_RUNNER = 'django.test.runner.DiscoverRunner',
 
-        NOSE_ARGS = [
-            '--with-coverage',
-            '--cover-package=likertblock',
-        ],
         JENKINS_TASKS = (
             'django_jenkins.tasks.with_coverage',
         ),
@@ -50,9 +46,11 @@ def main():
                 'PORT': '',
                 'USER': '',
                 'PASSWORD': '',
-                }
             }
+        }
     )
+
+    django.setup()
 
     # Fire off the tests
     call_command('jenkins')

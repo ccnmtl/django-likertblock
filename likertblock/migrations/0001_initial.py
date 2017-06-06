@@ -19,43 +19,70 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Question',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
                 ('text', models.TextField(blank=True)),
             ],
         ),
         migrations.CreateModel(
             name='Questionnaire',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
                 ('description', models.TextField(blank=True)),
             ],
         ),
         migrations.CreateModel(
             name='Response',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
                 ('value', models.IntegerField(default=0)),
-                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='likertblock.Question')),
+                ('question', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='likertblock.Question')),
             ],
         ),
         migrations.CreateModel(
             name='Submission',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
                 ('submitted', models.DateTimeField(auto_now_add=True)),
-                ('questionnaire', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='likertblock.Questionnaire')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='likert_submission', to=settings.AUTH_USER_MODEL)),
+                ('questionnaire', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='likertblock.Questionnaire')),
+                ('user', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    related_name='likert_submission',
+                    to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.AddField(
             model_name='response',
             name='submission',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='likertblock.Submission'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='likertblock.Submission'),
         ),
         migrations.AddField(
             model_name='question',
             name='questionnaire',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='likertblock.Questionnaire'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='likertblock.Questionnaire'),
         ),
         migrations.AlterOrderWithRespectTo(
             name='question',
