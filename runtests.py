@@ -32,7 +32,6 @@ def main():
         COVERAGE_EXCLUDES_FOLDERS = ['migrations'],
         ROOT_URLCONF = [],
         PAGEBLOCKS = ['pagetree.TestBlock', ],
-        SOUTH_TESTS_MIGRATE=False,
 
         # Django replaces this, but it still wants it. *shrugs*
         DATABASES = {
