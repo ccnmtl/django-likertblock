@@ -6,6 +6,7 @@ $ ./ve/bin/python runtests.py
 """
 
 
+import django
 from django.conf import settings
 from django.core.management import call_command
 
@@ -20,29 +21,20 @@ def main():
             'django.contrib.sessions',
             'pagetree',
             'likertblock',
-            'django_nose',
             'django_jenkins',
             'django_markwhat',
         ),
-        TEST_RUNNER = 'django_nose.NoseTestSuiteRunner',
+        TEST_RUNNER='django.test.runner.DiscoverRunner',
 
-        NOSE_ARGS = [
-            '--with-coverage',
-            '--cover-package=likertblock',
-        ],
-        JENKINS_TASKS = (
-            'django_jenkins.tasks.with_coverage',
-        ),
-        PROJECT_APPS = [
+        PROJECT_APPS=[
             'likertblock',
         ],
-        COVERAGE_EXCLUDES_FOLDERS = ['migrations'],
-        ROOT_URLCONF = [],
-        PAGEBLOCKS = ['pagetree.TestBlock', ],
-        SOUTH_TESTS_MIGRATE=False,
+        COVERAGE_EXCLUDES_FOLDERS=['migrations'],
+        ROOT_URLCONF=[],
+        PAGEBLOCKS=['pagetree.TestBlock', ],
 
         # Django replaces this, but it still wants it. *shrugs*
-        DATABASES = {
+        DATABASES={
             'default': {
                 'ENGINE': 'django.db.backends.sqlite3',
                 'NAME': ':memory:',
@@ -50,12 +42,15 @@ def main():
                 'PORT': '',
                 'USER': '',
                 'PASSWORD': '',
-                }
             }
+        }
     )
 
+    django.setup()
+
     # Fire off the tests
-    call_command('jenkins')
+    call_command('jenkins', '--enable-coverage')
+
 
 if __name__ == '__main__':
     main()
