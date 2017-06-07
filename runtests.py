@@ -26,9 +26,6 @@ def main():
         ),
         TEST_RUNNER = 'django.test.runner.DiscoverRunner',
 
-        JENKINS_TASKS = (
-            'django_jenkins.tasks.with_coverage',
-        ),
         PROJECT_APPS = [
             'likertblock',
         ],
@@ -53,7 +50,7 @@ def main():
     django.setup()
 
     # Fire off the tests
-    call_command('jenkins')
+    call_command('jenkins', '--enable-coverage')
 
 if __name__ == '__main__':
     main()
