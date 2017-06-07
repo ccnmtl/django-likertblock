@@ -24,17 +24,17 @@ def main():
             'django_jenkins',
             'django_markwhat',
         ),
-        TEST_RUNNER = 'django.test.runner.DiscoverRunner',
+        TEST_RUNNER='django.test.runner.DiscoverRunner',
 
-        PROJECT_APPS = [
+        PROJECT_APPS=[
             'likertblock',
         ],
-        COVERAGE_EXCLUDES_FOLDERS = ['migrations'],
-        ROOT_URLCONF = [],
-        PAGEBLOCKS = ['pagetree.TestBlock', ],
+        COVERAGE_EXCLUDES_FOLDERS=['migrations'],
+        ROOT_URLCONF=[],
+        PAGEBLOCKS=['pagetree.TestBlock', ],
 
         # Django replaces this, but it still wants it. *shrugs*
-        DATABASES = {
+        DATABASES={
             'default': {
                 'ENGINE': 'django.db.backends.sqlite3',
                 'NAME': ':memory:',
@@ -50,6 +50,7 @@ def main():
 
     # Fire off the tests
     call_command('jenkins', '--enable-coverage')
+
 
 if __name__ == '__main__':
     main()
