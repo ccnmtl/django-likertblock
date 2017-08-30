@@ -29,7 +29,7 @@ setup(
     name="django-likertblock",
     version="0.4.0",
     author="Anders Pearson",
-    author_email="anders@columbia.edu",
+    author_email="ccnmtl-dev@columbia.edu",
     url="",
     description="Basic Likert PageBlock",
     long_description="Basic Likert PageBlock",
